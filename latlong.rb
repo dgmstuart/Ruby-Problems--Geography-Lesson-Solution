@@ -16,6 +16,9 @@ class LatLong
     result = signed_decimal_degrees_minutes if result.nil?
     result = decimal_degrees_minutes_direction if result.nil?
     
+    result = decimal_degrees_minutes_seconds_direction if result.nil?
+    result = signed_decimal_degrees_minutes_seconds if result.nil?
+    
     sign_coordinates
   end
   
@@ -71,10 +74,42 @@ class LatLong
     end
   end
   
-
+  
+  def decimal_degrees_minutes_seconds_direction
+    matches = /^(#{UnsignedInteger}) (#{UnsignedInteger}) (#{UnsignedDecimal}) (#{Direction}) (#{UnsignedInteger}) (#{UnsignedInteger}) (#{UnsignedDecimal}) (#{Direction})$/.match(@input)
+    unless matches.nil?
+      y_degrees, y_minutes, y_seconds, @y_sign, x_degrees, x_minutes, x_seconds, @x_sign = matches[1,8]
+    else  
+      matches = /^(#{Direction}) (#{UnsignedInteger}) (#{UnsignedInteger}) (#{UnsignedDecimal}) (#{Direction}) (#{UnsignedInteger}) (#{UnsignedInteger}) (#{UnsignedDecimal})$/.match(@input)
+      unless matches.nil?
+        @y_sign, y_degrees, y_minutes, y_seconds, @x_sign, x_degrees, x_minutes, x_seconds = matches[1,8]
+      else
+        return #no match
+      end
+    end
+    
+    get_coords_from_degrees_minutes_and_seconds(y_degrees, y_minutes, y_seconds, x_degrees, x_minutes, x_seconds)
+  end
+  
+  
+  def signed_decimal_degrees_minutes_seconds
+    matches = /^(#{Sign})(#{UnsignedInteger}) (#{UnsignedInteger}) (#{UnsignedDecimal}) (#{Sign})(#{UnsignedInteger}) (#{UnsignedInteger}) (#{UnsignedDecimal})$/.match(@input)
+    unless matches.nil?
+      @y_sign, y_degrees, y_minutes, y_seconds, @x_sign, x_degrees, x_minutes, x_seconds = matches[1,8]
+  
+      get_coords_from_degrees_minutes_and_seconds(y_degrees, y_minutes, y_seconds, x_degrees, x_minutes, x_seconds)
+    end
+  end
+  
+  
   def get_coords_from_degrees_and_minutes(y_degrees, y_minutes, x_degrees, x_minutes)
     @y = y_degrees.to_i + y_minutes.to_f/60
     @x = x_degrees.to_i + x_minutes.to_f/60
+  end
+  
+  def get_coords_from_degrees_minutes_and_seconds(y_degrees, y_minutes, y_seconds, x_degrees, x_minutes, x_seconds)
+    @y = y_degrees.to_i + y_minutes.to_f/60 + y_seconds.to_f/3600
+    @x = x_degrees.to_i + x_minutes.to_f/60 + x_seconds.to_f/3600
   end
 
   # Modify coordinates which are negative

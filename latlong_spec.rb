@@ -90,4 +90,40 @@ describe LatLong do
     end
   end
   
+  describe "#to_xy with Decimal Degrees, Minutes, Seconds and Directions" do   
+    it "correctly parses '45 45 4.5 N 38 30 10.8 E'" do
+      latlong.to_xy("45 45 4.5 N 38 30 10.8 E").should == [38.503,45.75125]
+    end
+    it "correctly parses '45 45 4.5 S 38 30 10.8 W'" do
+      latlong.to_xy("45 45 4.5 S 38 30 10.8 W").should == [-38.503,-45.75125] 
+    end
+    it "correctly parses '45 45 4.5 N 38 30 10.8 W'" do
+      latlong.to_xy("45 45 4.5 N 38 30 10.8 W").should == [-38.503,45.75125]
+    end
+    it "correctly parses 'N 45 45 4.5 E 38 30 10.8'" do
+      latlong.to_xy("N 45 45 4.5 E 38 30 10.8").should == [38.503,45.75125]
+    end
+    it "correctly parses 'S 45 45 4.5 W 38 30 10.8'" do
+      latlong.to_xy("S 45 45 4.5 W 38 30 10.8").should == [-38.503,-45.75125]
+    end
+    it "correctly parses 'N 45 45 4.5 W 38 30 10.8'" do
+      latlong.to_xy("N 45 45 4.5 W 38 30 10.8").should == [-38.503,45.75125]
+    end
+  end
+
+  describe "#to_xy with Signed Decimal Degrees, Minutes, Seconds" do   
+    it "correctly parses '45 45 4.5 38 30 10.8'" do
+      latlong.to_xy("45 45 4.5 38 30 10.8").should == [38.503,45.75125]
+    end
+    it "correctly parses '-45 45 4.5 -38 30 10.8'" do
+      latlong.to_xy("-45 45 4.5 -38 30 10.8").should == [-38.503,-45.75125] 
+    end
+    it "correctly parses '45 45 4.5 -38 30 10.8'" do
+      latlong.to_xy("45 45 4.5 -38 30 10.8").should == [-38.503,45.75125]
+    end
+    it "correctly parses '-45 45 4.5 38 30 10.8'" do
+      latlong.to_xy("-45 45 4.5 38 30 10.8").should == [38.503,-45.75125]
+    end
+  end
+  
 end
