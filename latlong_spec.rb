@@ -55,39 +55,39 @@ describe LatLong do
     it "correctly parses '40 30.6 N 65 36.36 E'" do
       latlong.to_xy("40 30.6 N 65 36.36 E").should == [65.606,40.51]
     end
-    # it "correctly parses '40 30.6 S 65 36.36 W'" do
-    #       latlong.to_xy("40 30.6 S 65 36.36 W").should == [-65.606,-40.51] 
-    #     end
-    #     it "correctly parses '40 30.6 N 65 36.36 W'" do
-    #       latlong.to_xy("40 30.6 N 65 36.36 W").should == [-65.606,40.51]
-    #     end
-    #     it "correctly parses 'N 40 30.6 E 65 36.36'" do
-    #       latlong.to_xy("N 40 30.6 E 65 36.36").should == [65.606,40.51]
-    #     end
-    #     it "correctly parses 'S 40 30.6 W 65 36.36'" do
-    #       latlong.to_xy("S 40 30.6 W 65 36.36").should == [-65.606,-40.51]
-    #     end
-    #     it "correctly parses 'N 40 30.6 W 65 36.36'" do
-    #       latlong.to_xy("N 40 30.6 W 65 36.36").should == [-65.606,40.51]
-    #     end
+    it "correctly parses '40 30.6 S 65 36.36 W'" do
+      latlong.to_xy("40 30.6 S 65 36.36 W").should == [-65.606,-40.51] 
+    end
+    it "correctly parses '40 30.6 N 65 36.36 W'" do
+      latlong.to_xy("40 30.6 N 65 36.36 W").should == [-65.606,40.51]
+    end
+    it "correctly parses 'N 40 30.6 E 65 36.36'" do
+      latlong.to_xy("N 40 30.6 E 65 36.36").should == [65.606,40.51]
+    end
+    it "correctly parses 'S 40 30.6 W 65 36.36'" do
+      latlong.to_xy("S 40 30.6 W 65 36.36").should == [-65.606,-40.51]
+    end
+    it "correctly parses 'N 40 30.6 W 65 36.36'" do
+      latlong.to_xy("N 40 30.6 W 65 36.36").should == [-65.606,40.51]
+    end
   end
   
-  # describe "#to_xy with Signed Decimal Degrees and Minutes" do   
-  #     it "correctly parses '40 30.6 65 36.36'" do
-  #       latlong.to_xy("40 30.6 65 36.36").should == [65.606,40.51]
-  #     end
-  #     it "correctly parses '+40 30.6 +65 36.36'" do
-  #       latlong.to_xy("+40 30.6 +65 36.36").should == [-65.606,-40.51] 
-  #     end
-  #     it "correctly parses '-40 30.6 -65 36.36'" do
-  #       latlong.to_xy("-40 30.6 -65 36.36").should == [-65.606,40.51]
-  #     end
-  #     it "correctly parses '40 30.6 -65 36.36'" do
-  #       latlong.to_xy("40 30.6 -65 36.36").should == [65.606,40.51]
-  #     end
-  #     it "correctly parses '-40 30.6 65 36.36'" do
-  #       latlong.to_xy("-40 30.6 65 36.36").should == [65.606,-40.51]
-  #     end
-  #   end
+  describe "#to_xy with Signed Decimal Degrees and Minutes" do   
+    it "correctly parses '40 30.6 65 36.36'" do
+      latlong.to_xy("40 30.6 65 36.36").should == [65.606,40.51]
+    end
+    it "correctly parses '+40 30.6 +65 36.36'" do
+      latlong.to_xy("+40 30.6 +65 36.36").should == [65.606,40.51] 
+    end
+    it "correctly parses '-40 30.6 -65 36.36'" do
+      latlong.to_xy("-40 30.6 -65 36.36").should == [-65.606,-40.51]
+    end
+    it "correctly parses '40 30.6 -65 36.36'" do
+      latlong.to_xy("40 30.6 -65 36.36").should == [-65.606,40.51]
+    end
+    it "correctly parses '-40 30.6 65 36.36'" do
+      latlong.to_xy("-40 30.6 65 36.36").should == [65.606,-40.51]
+    end
+  end
   
 end
